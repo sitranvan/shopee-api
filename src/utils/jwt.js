@@ -1,6 +1,10 @@
 const jwt = require('jsonwebtoken')
 const tokenType = require('../constants/tokenType')
 const { env } = require('../configs/env')
+const { userMessage } = require('../constants/message')
+const { ErrorWithStatus } = require('../models/Error')
+const httpStatus = require('../constants/httpStatus')
+const { capitalize } = require('lodash')
 
 // Sign token
 const signToken = ({
@@ -82,7 +86,10 @@ const decodeRefreshToken = (refresh_token) => {
         secretOrPublicKey: env.jwtRefreshTokenSecret
     })
 }
+
 module.exports = {
+    signAccessToken,
+    signRefreshToken,
     signAccessAndRefreshToken,
     decodeRefreshToken,
     verifyToken

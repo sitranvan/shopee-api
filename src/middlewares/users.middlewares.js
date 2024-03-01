@@ -4,7 +4,7 @@ const UserModles = require('../models/User.modles')
 const { hashPassword } = require('../utils/crypto')
 const { ErrorWithStatus } = require('../models/Error')
 const RefreshTokenModels = require('../models/RefreshToken.models')
-const { verifyToken } = require('../utils/jwt')
+const { verifyToken, verifyAccessToken } = require('../utils/jwt')
 const { env } = require('../configs/env')
 const { JsonWebTokenError } = require('jsonwebtoken')
 const { capitalize } = require('lodash')
@@ -74,6 +74,40 @@ const loginValidator = checkSchema(
     ['body']
 )
 
+// kiểm tra người dùng đã đăng nhập chưa
+const authorizationValidator = checkSchema({
+    Authorization: {
+        trim: true,
+        custom: {
+            options: async (value, { req }) => {
+                if (!value) {
+                    throw new ErrorWithStatus({
+                        message: userMessage.ACCESS_TOKEN_NOT_EMPTY,
+                        status: httpStatus.UNAUTHORIZED
+                    })
+                }
+                const access_token = (value || '').split(' ')[1]
+                try {
+                    const decoded_authorization = await verifyToken({
+                        token: access_token,
+                        secretOrPublicKey: env.jwtAccessTokenSecret
+                    })
+                    if (req) {
+                        req.decoded_authorization = decoded_authorization
+                        return true
+                    }
+                    return decoded_authorization
+                } catch (error) {
+                    throw new ErrorWithStatus({
+                        message: capitalize(error.message),
+                        status: httpStatus.UNAUTHORIZED
+                    })
+                }
+            }
+        }
+    }
+})
+
 const refreshTokenValidator = checkSchema({
     refresh_token: {
         trim: true,
@@ -116,5 +150,6 @@ const refreshTokenValidator = checkSchema({
 module.exports = {
     registerValidator,
     loginValidator,
-    refreshTokenValidator
+    refreshTokenValidator,
+    authorizationValidator
 }

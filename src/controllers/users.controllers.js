@@ -2,7 +2,7 @@ const { userMessage } = require('../constants/message')
 const RefreshTokenModels = require('../models/RefreshToken.models')
 const UserModles = require('../models/User.modles')
 const { hashPassword } = require('../utils/crypto')
-const { signAccessAndRefreshToken, decodeRefreshToken } = require('../utils/jwt')
+const { signAccessAndRefreshToken, decodeRefreshToken, signAccessToken, signRefreshToken } = require('../utils/jwt')
 
 const registerController = async (req, res) => {
     const { email, password } = req.body
@@ -56,8 +56,35 @@ const logoutController = async (req, res) => {
     })
 }
 
+const refreshTokenController = async (req, res) => {
+    const { refresh_token } = req.body
+    const { user_id, verify, exp } = req.decoded_refresh_token
+
+    const [new_access_token, new_refresh_token] = await Promise.all([
+        signAccessToken({ user_id, verify }),
+        signRefreshToken({ user_id, verify }),
+        RefreshTokenModels.deleteOne({
+            token: refresh_token,
+            user_id
+        })
+    ])
+    await RefreshTokenModels.create({
+        user_id,
+        token: new_refresh_token,
+        iat: new Date(Date.now()),
+        exp: new Date(Date.now() + exp * 1000)
+    })
+    return res.json({
+        message: userMessage.REFRESH_TOKEN_SUCCESS,
+        data: {
+            access_token: new_access_token,
+            refresh_token: new_refresh_token
+        }
+    })
+}
 module.exports = {
     registerController,
     loginController,
-    logoutController
+    logoutController,
+    refreshTokenController
 }

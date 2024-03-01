@@ -11,7 +11,9 @@ const userMessage = {
     LOGIN_SUCCESS: 'Đăng nhập thành công',
     LOGOUT_SUCCESS: 'Đăng xuất thành công',
     REFRESH_TOKEN_INVALID: 'Refresh token không tồn tại hoặc đã hết hạn',
-    REFRESH_TOKEN_NOT_EMPTY: 'Refresh token không được bỏ trống'
+    REFRESH_TOKEN_NOT_EMPTY: 'Refresh token không được bỏ trống',
+    ACCESS_TOKEN_NOT_EMPTY: 'Access token không được bỏ trống',
+    REFRESH_TOKEN_SUCCESS: 'Làm mới token thành công'
 }
 
 const serverMessage = {
