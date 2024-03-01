@@ -45,7 +45,19 @@ const loginController = async (req, res) => {
     })
 }
 
+const logoutController = async (req, res) => {
+    const { refresh_token } = req.body
+
+    await RefreshTokenModels.deleteOne({
+        token: refresh_token
+    })
+    return res.json({
+        message: userMessage.LOGOUT_SUCCESS
+    })
+}
+
 module.exports = {
     registerController,
-    loginController
+    loginController,
+    logoutController
 }

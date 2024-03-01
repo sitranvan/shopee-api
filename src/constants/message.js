@@ -8,7 +8,10 @@ const userMessage = {
     REGISTER_SUCCESS: 'Đăng ký tài khoản thành công',
     EMAIL_EXISTED: 'Email đã tồn tại trong hệ thống',
     EMAIL_OR_PASSWORD_IS_INCORRECT: 'Email hoặc mật khẩu không chính xác',
-    LOGIN_SUCCESS: 'Đăng nhập thành công'
+    LOGIN_SUCCESS: 'Đăng nhập thành công',
+    LOGOUT_SUCCESS: 'Đăng xuất thành công',
+    REFRESH_TOKEN_INVALID: 'Refresh token không tồn tại hoặc đã hết hạn',
+    REFRESH_TOKEN_NOT_EMPTY: 'Refresh token không được bỏ trống'
 }
 
 const serverMessage = {
