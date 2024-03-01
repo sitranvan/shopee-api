@@ -1,7 +1,8 @@
 const { Router } = require('express')
 const wrapRequest = require('../utils/request')
-const { registerController } = require('../controllers/users.controllers')
 const { validate } = require('../utils/validate')
+const { registerController } = require('../controllers/users.controllers')
+
 const { registerValidator } = require('../middlewares/users.middlewares')
 
 const usersRouter = Router()
