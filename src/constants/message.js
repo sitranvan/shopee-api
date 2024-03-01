@@ -6,7 +6,9 @@ const userMessage = {
     CONFIRM_PASSWORD_NOT_EMPTY: 'Xác nhận mật khẩu không được bỏ trống',
     CONFIRM_PASSWORD_NOT_MATCH: 'Mật khẩu không khớp',
     REGISTER_SUCCESS: 'Đăng ký tài khoản thành công',
-    EMAIL_EXISTED: 'Email đã tồn tại trong hệ thống'
+    EMAIL_EXISTED: 'Email đã tồn tại trong hệ thống',
+    EMAIL_OR_PASSWORD_IS_INCORRECT: 'Email hoặc mật khẩu không chính xác',
+    LOGIN_SUCCESS: 'Đăng nhập thành công'
 }
 
 const serverMessage = {

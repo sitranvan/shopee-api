@@ -10,5 +10,6 @@ exports.env = {
 
     jwtAccessTokenSecret: process.env.JWT_ACCESS_TOKEN_SECRET,
     jwtRefreshTokenSecret: process.env.JWT_REFRESH_TOKEN_SECRET,
-    jwtExpireIn: process.env.JWT_EXPIRE_IN
+    jwtAccessTokenExpireIn: process.env.JWT_ACCESS_TOKEN_EXPIRE_IN,
+    jwtRefreshTokenExpireIn: process.env.JWT_REFRESH_TOKEN_EXPIRE_IN
 }
