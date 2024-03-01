@@ -88,6 +88,7 @@ const decodeRefreshToken = (refresh_token) => {
 }
 
 module.exports = {
+    signToken,
     signAccessToken,
     signRefreshToken,
     signAccessAndRefreshToken,

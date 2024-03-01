@@ -1,10 +1,10 @@
 const { checkSchema } = require('express-validator')
-const { userMessage } = require('../constants/message')
+const { userMessage, serverMessage } = require('../constants/message')
 const UserModles = require('../models/User.modles')
 const { hashPassword } = require('../utils/crypto')
 const { ErrorWithStatus } = require('../models/Error')
 const RefreshTokenModels = require('../models/RefreshToken.models')
-const { verifyToken, verifyAccessToken } = require('../utils/jwt')
+const { verifyToken } = require('../utils/jwt')
 const { env } = require('../configs/env')
 const { JsonWebTokenError } = require('jsonwebtoken')
 const { capitalize } = require('lodash')
@@ -87,6 +87,7 @@ const authorizationValidator = checkSchema({
                     })
                 }
                 const access_token = (value || '').split(' ')[1]
+
                 try {
                     const decoded_authorization = await verifyToken({
                         token: access_token,
@@ -99,7 +100,7 @@ const authorizationValidator = checkSchema({
                     return decoded_authorization
                 } catch (error) {
                     throw new ErrorWithStatus({
-                        message: capitalize(error.message),
+                        message: serverMessage.UNAUTHORIZED,
                         status: httpStatus.UNAUTHORIZED
                     })
                 }

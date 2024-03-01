@@ -19,7 +19,8 @@ const userMessage = {
 const serverMessage = {
     INTERNAL_SERVER_ERROR: 'Lỗi không xác định',
     NOT_FOUND: 'Không tìm thấy tài nguyên',
-    FORBIDDEN: 'Không có quyền truy cập'
+    FORBIDDEN: 'Không có quyền truy cập tài nguyên này',
+    UNAUTHORIZED: 'Không được phép'
 }
 
 module.exports = {
